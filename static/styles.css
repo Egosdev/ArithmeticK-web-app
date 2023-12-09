@@ -1,0 +1,437 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+ }
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: url('arithmetick-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+.welcome-screen {
+    padding-top: 2.8rem;
+    text-align: center;
+}
+
+.welcome-screen span {
+    color: #F47C00;
+}
+
+.welcome-screen h1 {
+    font-family: sans-serif;
+    font-weight: 800;
+    font-size: 144px;
+    margin-top: -1rem;
+}
+
+.welcome-screen h2 {
+    font-family: "DM Sans", arial;
+    font-weight: 200;
+    letter-spacing: 3px;
+    font-size: 50px;
+}
+
+.welcome-screen h3 {
+    background-color: black;
+    max-width: 1100px;
+    color: white;
+    font-family: "DM Sans", arial;
+    font-size: 23px;
+    border-radius: 15px;
+    letter-spacing: 4px;
+    margin: auto;
+    padding: 3px;
+    margin-bottom: 2.5rem;
+}
+
+.welcome-screen .input-wrapper {
+    padding-bottom: 30px;
+}
+
+.input-wrapper input {
+    background-color: #eee;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    width: 15em;
+    border-radius: 1.25rem;
+    color: black;
+    box-shadow: 0 0.4rem #dfd9d9;
+}
+
+.input-wrapper input:focus {
+    outline-color: #F47C00;
+    box-shadow: 0 0.4rem #F47C00;
+    color: black;
+}
+
+.welcome-screen p {
+    color: #11100E;
+    font-family: "DM Sans", arial;
+}
+
+.welcome-screen a {
+    color: #11100E;
+    font-family: "DM Sans", arial;
+}
+
+.welcome-screen a:hover {
+    font-weight: bold;
+}
+
+/*
+Login and Sign Up button style taken from this site.
+https://uiverse.io/satyamchaudharydev/modern-sheep-10
+*/
+
+.arrow-button {
+    --primary-color: linear-gradient(90deg, #F47C00, #FFDE59);
+    --secondary-color: #fff;
+    --hover-color: #111;
+    --arrow-width: 10px;
+    --arrow-stroke: 2px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 20px;
+    color: var(--secondary-color);
+    padding: 1em 1.8em;
+    background: var(--primary-color);
+    align-items: center;
+    gap: 0.6em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.arrow-button .arrow-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-button .arrow {
+    margin-top: 1px;
+    width: var(--arrow-width);
+    background: linear-gradient(90deg, #f7be3f, #FFDE59);
+    height: var(--arrow-stroke);
+    position: relative;
+    transition: 0.2s;
+}
+
+.arrow-button .arrow::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    border: solid var(--secondary-color);
+    border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+    display: inline-block;
+    top: -3px;
+    right: 3px;
+    transition: 0.2s;
+    padding: 3px;
+    transform: rotate(-45deg);
+}
+
+.arrow-button:hover {
+    background: var(--hover-color);
+}
+
+.arrow-button:hover .arrow {
+    background: var(--secondary-color);
+}
+
+.arrow-button:hover .arrow:before {
+    right: 0;
+}
+
+.button-content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/*
+Configure menu
+*/
+
+.configure-container {
+    position: relative;
+    font-family: "DM Sans", arial;
+    font-size: 1.75rem;
+}
+
+.configure-info {
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    padding-top: 13%;
+    margin-bottom: 40px;
+}
+
+.configure-info h1 {
+    font-family: "Poppins", arial;
+    font-weight: 900;
+    font-size: 7rem;
+    line-height: 0.9;
+}
+
+.configure-info p {
+    font-family: "DM Sans", arial;
+    font-size: 2rem;
+}
+
+.configure-profile {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    line-height: 0.9;
+}
+
+.upper-panel-text {
+    letter-spacing: 0.2em;
+    font-size: 2.25rem;
+    line-height: normal;
+    text-decoration: none;
+    color: #11100E;
+}
+
+.configure-settings {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 900px;
+    text-align: center;
+    font-family: "DM Sans", arial;
+}
+
+.configure-settings input {
+    width: 200px;
+    height: 200px;
+    margin: 0;
+    border: none;
+}
+
+.configure-settings input:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.configure-settings li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logout {
+    position: absolute;
+    top: 100px;
+    right: 100px;
+}
+
+.logout:hover {
+    font-weight: bold;
+}
+
+/*
+The alert message box from w3schools
+https://www.w3schools.com/howto/howto_js_alert.asp
+*/
+
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 40px;
+    font-family: Verdana,sans-serif;
+    opacity: 0.83;
+}
+
+.alert span {
+    font-weight: 800;
+    color: initial;
+    color: white;
+}
+
+.alert-container {
+    text-align: left;
+    padding-left: 20px;
+    margin: auto;
+    width: 75vh;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+
+/*
+Three buttons, game page
+https://uiverse.io/david-mohseni/brave-shrimp-86
+*/
+
+.wrapper {
+  display: inline-flex;
+  list-style: none;
+  height: 120px;
+  width: 100%;
+  padding-top: 40px;
+  font-family: "Poppins", sans-serif;
+  justify-content: center;
+}
+
+.wrapper .icon {
+  position: relative;
+  border-radius: 50%;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.game-button-one {
+    background: #FFC619;
+}
+
+.game-button-one:hover {
+    transform: scale(1.25);
+}
+
+.game-button-two {
+    background: #F47C00;
+}
+
+.game-button-two:hover {
+    transform: scale(1.25);
+}
+
+.game-button-three {
+    background: #1C1C1C;
+}
+
+.game-button-three:hover {
+    transform: scale(1.25);
+}
+
+.wrapper .tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background: #fff;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #fff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .icon:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.wrapper .icon:hover span,
+.wrapper .icon:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .game-button-one:hover,
+.wrapper .game-button-one:hover .tooltip,
+.wrapper .game-button-one:hover .tooltip::before {
+  background: #FFC619;
+  color: #fff;
+}
+
+.wrapper .game-button-two:hover,
+.wrapper .game-button-two:hover .tooltip,
+.wrapper .game-button-two:hover .tooltip::before {
+  background: #F47C00;
+  color: #fff;
+}
+
+.wrapper .game-button-three:hover,
+.wrapper .game-button-three:hover .tooltip,
+.wrapper .game-button-three:hover .tooltip::before {
+  background: #1C1C1C;
+  color: #fff;
+}
+
+/*
+Game Page
+*/
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center h1 {
+    font-family: "Roboto", arial;
+    font-weight: 400;
+    font-size: 7rem;
+    line-height: 0.9;
+    margin: 0;
+}
+
+.upper-right {
+    position: absolute;
+    top: 50px;
+    right: 100px;
+}
+
+.bottom {
+    top: 75%;
+    color: gray;
+}

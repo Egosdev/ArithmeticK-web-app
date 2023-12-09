@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Select Mode
+{% endblock %}
+
+{% block main %}
+    <div class="configure-container">
+        <div class="configure-profile">
+            <p class="upper-panel-text">HEY, {{ data["username"] }}</p>
+            <p>LVL {{ data["lvl"] }}</p>
+            <p>XP {{ data["xp"] }}/100</p>
+        </div>
+        <div class="logout">
+            <a class="upper-panel-text" href="./logout">LOG OUT</a>
+        </div>
+    </div>
+    <div class="configure-info">
+        <h1>CONFIGURE GAME MODES</h1>
+        <p>Only the arithmetic operations you select will be included, appearing randomly</p>
+    </div>
+    <div>
+        <form action="/" method="post">
+            <ul class="configure-settings">
+                <li><input type="checkbox" id="addition" name="game_mode" value="Addition"></input><label for="addition">Addition</label></li>
+                <li><input type="checkbox" id="subtraction" name="game_mode" value="Subtraction"></input><label for="subtraction">Subtraction</label></li>
+                <li><input type="checkbox" id="multiplication" name="game_mode" value="Multiplication"></input><label for="multiplication">Multiplication</label></li>
+                <li><input type="checkbox" id="division" name="game_mode" value="Division"></input><label for="division">Division</label></li>
+            </ul>
+            <div class="button-content-wrapper">
+                <button class="arrow-button" type="submit">
+                    READY
+                    <div class="arrow-wrapper">
+                        <div class="arrow"></div>
+                    </div>
+                </button>
+            </div>
+        </form>
+    </div>
+    {% if get_flashed_messages() %}
+    <div class="alert-container">
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span>Warning!</span> {{ get_flashed_messages() | join(" ") }}
+          </div>
+    </div>
+    {% endif %}
+{% endblock %}

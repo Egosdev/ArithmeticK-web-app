@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+    <div class="welcome-screen">
+        <h2>CS50 FINAL PROJECT</h2>
+        <h1>Arithme<span class="orange">tic<span>K</span></span></h1>
+        <h3>GAMIFIED QUICK MATH MASTERY</h3>
+        {% if get_flashed_messages() %}
+        <div class="alert-container">
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <span>Warning!</span> {{ get_flashed_messages() | join(" ") }}
+              </div>
+        </div>
+        {% endif %}
+        <form action="/login" method="post">
+            <div class="input-wrapper">
+                <input autocomplete="off" autofocus class="" id="username" name="username" placeholder="Username" type="text">
+            </div>
+            <div class="input-wrapper">
+                <input class="" id="password" name="password" placeholder="Password" type="password">
+            </div>
+            <div class="button-content-wrapper">
+                <button class="arrow-button" type="submit">
+                    LOG IN
+                    <div class="arrow-wrapper">
+                        <div class="arrow"></div>
+                    </div>
+                </button>
+            </div>
+            <div>
+                <p>Don't have an account? <a href="./register">Create a new account</a></p>
+            </div>
+        </form>
+    </div>
+{% endblock %}
