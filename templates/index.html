@@ -8,8 +8,8 @@
     <div class="configure-container">
         <div class="configure-profile">
             <p class="upper-panel-text">HEY, {{ data["username"] }}</p>
-            <p>LVL {{ data["lvl"] }}</p>
-            <p>XP {{ data["xp"] }}/100</p>
+            <p>LVL {{ lvl }}</p>
+            <p>XP {{ exp }} / {{ formula }}</p>
         </div>
         <div class="logout">
             <a class="upper-panel-text" href="./logout">LOG OUT</a>
@@ -40,6 +40,8 @@
     {% if get_flashed_messages() %}
     <div class="alert-container">
         <div class="alert">
+
+            <!-- By clicking the X symbol, the warn element's visibility is turned off -->
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
             <span>Warning!</span> {{ get_flashed_messages() | join(" ") }}
           </div>

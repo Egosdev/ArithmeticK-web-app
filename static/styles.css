@@ -185,10 +185,10 @@ Configure menu
 }
 
 .configure-info h1 {
-    font-family: "Poppins", arial;
-    font-weight: 900;
+    font-family: "Poppins regular", arial;
     font-size: 7rem;
     line-height: 0.9;
+    color: #242424;
 }
 
 .configure-info p {
@@ -227,6 +227,7 @@ Configure menu
     height: 200px;
     margin: 0;
     border: none;
+    accent-color: #f7be3f;
 }
 
 .configure-settings input:hover {
@@ -410,6 +411,73 @@ https://uiverse.io/david-mohseni/brave-shrimp-86
 Game Page
 */
 
+.operation-container {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+    font-size: 54px;
+    font-weight: 300;
+    font-family: "Roboto Light", arial;
+    cursor: default;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    color: green;
+}
+
+.operation-left {
+	width: 100px;
+    text-align: right;
+	margin-right: 30px;
+    direction: rtl; /*text overflow left instead of right*/
+}
+
+.operation-right {
+	width: 100px;
+	text-align: left;
+	margin-left: 30px;
+}
+
+.logo-div {
+	background: url(quiz.png);
+	background-size: cover;
+	min-width: 300px;
+	min-height: 200px;
+}
+
+.mode-div {
+	width: 800px;
+	height: 100px;
+	margin-left: -45px;
+	margin-bottom: -45px;
+}
+
+.mode-div h3 {
+	font-weight: 800;
+	font-size: 16px;
+	letter-spacing: -0.5px;
+	color: #1C1C1C;
+}
+
+.logo-container {
+	display: flex;
+	justify-content: center;
+	align-items: end;
+	font-family: "Poppins", arial;
+    margin-left: 20%;
+    cursor: default;
+}
+
+#orange {
+	color: #FFC619;
+}
+
 .center {
     position: absolute;
     top: 50%;
@@ -427,11 +495,176 @@ Game Page
 
 .upper-right {
     position: absolute;
-    top: 50px;
+    top: 40px;
     right: 100px;
 }
 
 .bottom {
     top: 75%;
     color: gray;
+    cursor: default;
+}
+
+#guess {
+    text-align: center;
+    border: none;
+    font-size: 54px;
+    font-weight: 300;
+    font-family: "Roboto Light", arial;
+    color: gray;
+    background-color: transparent;
+    cursor: default;
+}
+
+.center input:focus {
+    outline: none;
+    caret-color: transparent;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+/*
+Settings panel configuration
+*/
+
+.settings-panel {
+    background: linear-gradient(90deg, #DFDFDF, #EFEFEF);
+    width: 350px;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    align-items: center;
+    color: #1C1C1C;
+    font-size: 28px;
+    font-weight: 300;
+    font-family: "Roboto Light", arial;
+    box-shadow: rgba(100, 100, 111, 0.4) 0px 7px 29px 0px;
+    transition: 0.4s;
+    left: -350px;
+    z-index: 1;
+}
+
+#settings-panel.active {
+    left: 0;
+}
+
+.settings-panel h2 {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.settings-button {
+    border: none;
+}
+
+.result-container {
+    font-size: 32px;
+    text-align: center;
+}
+
+.result-container h2{
+    font-size: 44px;
+    font-weight: 700;
+}
+
+.result-div {
+    padding-left: 25%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.result-div button {
+    transition-duration: 0.4s;
+    border: none;
+    padding: 15px;
+    background-color: #212529;
+    border-radius: 15px;
+    font-weight: 500;
+    color: white;
+}
+
+.result-div button:hover {
+    background-color: #f7be3f;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 50px;
+}
+
+/*
+Parallax background logic comes from https://codepen.io/Mojer/pen/VrqrbN?editors=1111#
+*/
+
+#parallax-bg {
+    background: url('arithmetick-bg.png') -25px -50px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    height: 100%;
+    background-size: calc(100% + 50px);
+}
+
+.settings-mode-div fieldset {
+    margin: 25px;
+    text-align: left;
+    background-color: lightgray;
+}
+
+.settings-mode-div input {
+    width: 55px;
+    height: 30px;
+    margin-left: 20px;
+    border: none;
+    background-color: rgb(199, 199, 199);
+    text-align: center;
+    font-size: 24px;
+    border-radius: 15px;
+}
+
+.settings-mode-div legend {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.settings-mode-div label {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.random-digit-option {
+    font-size: 20px;
+    text-align: left;
+    padding-top: 30px;
+    margin-left: 25px;
+}
+
+.ready {
+    width: 300px;
+    height: 300px;
+    color: white;
+    font-weight: bold;
+    background: linear-gradient(0deg, #F47C00, #FFDE59);
+    border-radius: 50%;
+    font-size: 52px;
+    border: none;
+    animation: clickme-anim 1.75s infinite alternate;
+}
+
+@keyframes clickme-anim {
+  to {
+    transform: scale(1.25);
+  }
+}
+
+.ready:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.ready:hover {
+    background: linear-gradient(90deg, #f7be3f, #FFDE59);
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

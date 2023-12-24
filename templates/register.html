@@ -6,12 +6,15 @@
 
 {% block main %}
     <div class="welcome-screen">
+        <div id="parallax-bg"></div>
         <h2>CS50 FINAL PROJECT</h2>
         <h1>Arithme<span class="orange">tic<span>K</span></span></h1>
         <h3>GAMIFIED QUICK MATH MASTERY</h3>
         {% if get_flashed_messages() %}
         <div class="alert-container">
             <div class="alert">
+
+                <!-- By clicking the X symbol, the warn element's visibility is turned off -->
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                 <span>Warning!</span> {{ get_flashed_messages() | join(" ") }}
               </div>
@@ -40,4 +43,5 @@
             </div>
         </form>
     </div>
+    <script src="/static/parallax.js"></script>
 {% endblock %}

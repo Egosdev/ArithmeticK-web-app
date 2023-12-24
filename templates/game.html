@@ -1,30 +1,85 @@
 {% extends "layout.html" %}
 
+{% block head %}
+    <link rel="preload" href="/static/quiz.png" as="image" />
+{% endblock %}
 {% block title %}
     Game
 {% endblock %}
 
 {% block main %}
-    <div class="center">
-        <h1>a + b</h1>
+    <div class="settings-panel" id="settings-panel">
+        <h2>Settings</h2>
+
+        <!-- There are some restrictions in order to change the min and max values within the limits in relation to each other -->
+        <div class="settings-mode-div">
+            <fieldset id="addition-fieldset">
+                <legend>Addition</legend>
+                <label for="addition-min"><input type="number" id="addition-min" onkeypress="return event.preventDefault()" onkeyup="return checkMinMaxInput(event, id, 'addition-max')" value="1"> Min</label>
+                <label for="addition-max"><input type="number" id="addition-max" onkeypress="return event.preventDefault()" onkeyup="return checkMinMaxInput(event, id, 'addition-min')" value="2"> Max</label>
+            </fieldset>
+        </div>
+        <div class="settings-mode-div">
+            <fieldset id="subtraction-fieldset">
+                <legend>Subtraction</legend>
+                <label for="subtraction-min"><input type="number" id="subtraction-min" onkeypress="return event.preventDefault()" onkeyup="return checkMinMaxInput(event, id, 'subtraction-max')" value="1"> Min</label>
+                <label for="subtraction-max"><input type="number" id="subtraction-max" onkeypress="return event.preventDefault()" onkeyup="return checkMinMaxInput(event, id, 'subtraction-min')" value="2"> Max</label>
+            </fieldset>
+        </div>
+        <div class="settings-mode-div">
+            <fieldset id="multiplication-fieldset">
+                <legend>Multiplication</legend>
+                <label for="multiplication-min"><input type="number" id="multiplication-min" onkeypress="return event.preventDefault()" onkeyup="return checkMinMaxInput(event, id, 'multiplication-max')" value="1"> Min</label>
+                <label for="multiplication-max"><input type="number" id="multiplication-max" onkeypress="return event.preventDefault()" onkeyup="return checkMinMaxInput(event, id, 'multiplication-min')" value="2"> Max</label>
+            </fieldset>
+        </div>
+        <div class="settings-mode-div">
+            <fieldset id="division-fieldset">
+                <legend>Division</legend>
+                <label for="division-min"><input type="number" id="division-min" onkeypress="return event.preventDefault()" onkeyup="return checkMinMaxInput(event, id, 'division-max')" value="1"> Min</label>
+                <label for="division-max"><input type="number" id="division-max" onkeypress="return event.preventDefault()" onkeyup="return checkMinMaxInput(event, id, 'division-min')" value="2"> Max</label>
+            </fieldset>
+        </div>
+        <div class="random-digit-option">
+            <label><input id="random-number-digits" type="checkbox"> The numbers can each have a random number of digits</label>
+        </div>
+    </div>
+    <div class="logo-container">
+        <div class="logo-div"></div>
+        <div class="mode-div">
+            <progress class="progress-bar" id="progress-bar" max="{{ QUESTION_AMOUNT }}" value="0"></progress>
+            <h3 id="game-modes">{{ selected_gamemodes }}</h3>
+            <h3 id="orange">CLASSIC MODE</h3>
+        </div>
+    </div>
+    <div class="operation-container" id="operation-container">
+        <div class="operation-left"><h1 id="placeholder-left"></h1></div>
+        <div class="operation-center"><h1 id="placeholder-center"></h1></div>
+        <div class="operation-right"><h1 id="placeholder-right"></h1></div>
+    </div>
+    <div class="center" id="ready">
+        <button class="ready" >READY</button>
     </div>
     <div class="upper-right">
         <ul class="wrapper">
-            <li class="icon game-button-one">
+            <a href=""><li class="icon game-button-one">
                 <span class="tooltip">Restart</span>
                 <span><i class="fab fa-game-button-one-f"></i></span>
-            </li>
-            <li class="icon game-button-two">
+            </li></a>
+            <button class="icon game-button-two settings-button" onclick="toggleSettings()">
                 <span class="tooltip">Settings</span>
                 <span><i class="fab fa-game-button-two"></i></span>
-            </li>
-            <li class="icon game-button-three">
-                <span class="tooltip">Exit</span>
+            </button>
+            <a href="/"><li class="icon game-button-three">
+                <span class="tooltip">Return</span>
                 <span><i class="fab fa-game-button-three"></i></span>
-            </li>
+            </li></a>
         </ul>
     </div>
     <div class="center bottom">
-        <h1>?</h1>
+
+        <!-- Player's input can only be positive or negative integers -->
+        <input class="hidden" type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 45" id="guess" name="guess" placeholder="?" autocomplete="off" />
     </div>
+    <script src="/static/game-engine.js"></script>
 {% endblock %}

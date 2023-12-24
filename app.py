@@ -3,6 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
+from statistics import stdev
 
 # Configure application
 app = Flask(__name__)
@@ -15,6 +16,7 @@ Session(app)
 # Configure SQLite database with CS50 python library
 db = SQL("sqlite:///data.db")
 
+QUESTION_AMOUNT = 10
 
 def login_required(f):
     """
@@ -44,7 +46,22 @@ def index():
     """Configure game modes"""
 
     # Query for user informations when the page is loaded
-    data = db.execute("SELECT username,lvl,xp FROM users WHERE id = ?", session["user_id"])[0]
+    data = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]
+
+    # Query for player's total experience
+    exp = db.execute("SELECT SUM(experience_reward) FROM game_sessions WHERE id = ?", session["user_id"])[0]["SUM(experience_reward)"]
+    
+    # If no games have been played yet
+    if (exp is None):
+        exp = 0
+
+    # Initialize level
+    lvl = 1
+
+    # Level system formula that converts total xp into levels, with the maximum increasing by ten points depending on the level
+    while (exp >= (100 + (10*(lvl-1)))):
+        exp = exp - (100 + (10*(lvl-1)))
+        lvl = lvl + 1
 
     # Updating username in uppercase format
     data["username"] = str(data["username"]).upper()
@@ -55,16 +72,24 @@ def index():
         # Set selected game modes checkbox information to a variable
         game_mode_values = request.form.getlist("game_mode")
 
-        # Ensure at least one game mode selected
+        # Ensure game mode is not empty
         if not game_mode_values:
             flash("Add at least one game mode")
-            return render_template("index.html", data=data)
+            return render_template("index.html", data=data, exp=exp, lvl=lvl, formula=(100 + (10 * (lvl-1))))
+
+        # Ensure at least one game mode selected
         else:
+
+            # Names of the selected game modes as a string array
+            selected_gamemodes = request.form.getlist('game_mode')
+
+            # Sets the selected game modes array to the current session
+            session['selected_gamemodes'] = selected_gamemodes
 
             # Redirect user to game page
             return redirect("/game")
 
-    return render_template("index.html", data=data)
+    return render_template("index.html", data=data, exp=exp, lvl=lvl, formula=(100 + (10 * (lvl-1))))
 
 
 @app.route("/game", methods=["GET", "POST"])
@@ -72,7 +97,72 @@ def index():
 def game_page():
     """Game page"""
 
-    return render_template("game.html")
+    # Concat the array that stores selected game modes into a string by separating them with commas
+    selected_gamemodes = ", ".join(session.get('selected_gamemodes', []))
+
+    return render_template("game.html", selected_gamemodes=selected_gamemodes, QUESTION_AMOUNT=QUESTION_AMOUNT)
+
+
+@app.route("/results", methods=["GET", "POST"])
+@login_required
+def result_page():
+    """Result and statistics page"""
+
+    # User reached route via POST (JSON format via JavaScript)
+    if request.method == "POST":
+
+        # An array containing the statistics of 10 questions, each of which is an object, in JSON format
+        data = request.get_json()["game_session_data"]
+
+        # Inserts the statistics of each question one by one into the database
+        for item in data:
+            db.execute(
+                "INSERT INTO game_sessions (id, reaction_time, operation_text, answer, question_type, experience_reward) VALUES (?, ?, ?, ?, ?, ?)",
+                session["user_id"],
+                float(item["reactionTime"]),
+                item["operationText"],
+                item["questionAnswer"],
+                item["operationType"],
+                item["experience"]
+            )
+        
+        # Redirect user to results page again
+        return redirect("/results")
+    
+    # User reached route via GET, without submitting a form
+    else:
+
+        # Query for statistics of the player's last 10 questions from the database
+        dataset = db.execute("SELECT * FROM game_sessions WHERE id = ? ORDER BY time_stamp DESC LIMIT ?", session["user_id"], QUESTION_AMOUNT)
+
+        # Initialize reaction data array
+        reaction_data = []
+
+        # Appends reaction time's one by one to the reaction data array
+        for data in dataset:
+            reaction_data.append(data["reaction_time"])
+
+        # Average of correct answer reaction with 2 decimal points
+        mean = float("{:.2f}".format(sum(reaction_data) / len(reaction_data)))
+
+        # Standard deviation of correct answer reaction with 2 decimal points
+        std = float("{:.2f}".format(stdev(reaction_data)))
+
+        # Initialize z-score for determine deviations from the mean array
+        zscore_data = []
+
+        # Determines the count of symbols to represent how many standard deviations it deviates for each question
+        for data in reaction_data:
+            z = abs((data-mean)/std)
+            if z < 1:
+                z = 1
+            elif 1 <= z <= 1.5:
+                z = 2
+            else:
+                z = 3
+            zscore_data.append(int(z))
+
+        return render_template("result.html", dataset=dataset, mean=mean, zscore_data=zscore_data, std=std)
 
 
 @app.route("/login", methods=["GET", "POST"])
