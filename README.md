@@ -1,5 +1,5 @@
 # ArithmeticK 
-#### Video Demo:  <URL HERE>
+#### Video Demo: https://www.youtube.com/watch?v=wJG1kwwYl3M
 #### Description: The mathematics gamification web application, developed using JavaScript and Python with the Flask framework, served as a final project for the CS50 course.
 ## CS50
 > [!IMPORTANT]
